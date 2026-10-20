@@ -4,10 +4,16 @@
    HEADER WRAPPER
    ======================== */
 
-.header {
-    width: 100%;
+#navbar {
     position: sticky;
     top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.header {
+    width: 100%;
+    position: relative;
     z-index: 1000;
     background: #ffffff;
     font-family: "Poppins", "Segoe UI", sans-serif;
@@ -95,7 +101,7 @@
 .navbar-container {
     position: relative;
     width: 100%;
-    min-height: 84px;
+    min-height: 90px;
     margin: auto;
     display: flex;
     align-items: center;
@@ -112,7 +118,7 @@
     z-index: 0;
     left: 0;
     top: 0;
-    width: 240px;
+    width: 280px;
     height: 100%;
     background: linear-gradient(115deg, #7114ef 0%, #1475f7 100%);
     clip-path: polygon(0 0, 88% 0, 100% 100%, 0 100%);
@@ -128,18 +134,25 @@
     z-index: 1;
     display: flex;
     align-items: center;
-    width: 136px;
-    min-width: 136px;
-    padding-left: 2.5%;
+    width: auto;
+    min-width: 180px;
+    padding-left: 24px;
+    padding-right: 12px;
     flex-shrink: 0;
     text-decoration: none;
 }
 
 .logo img {
     display: block;
-    width: 136px;
-    height: 60px;
+    width: auto;
+    height: 70px;
+    max-width: 200px;
     object-fit: contain;
+    transition: transform 0.2s ease;
+}
+
+.logo:hover img {
+    transform: scale(1.02);
 }
 
 /* ========================
@@ -149,7 +162,7 @@
 .navbar {
     position: relative;
     z-index: 1;
-    margin-left: 80px;
+    margin-left: 30px;
     margin-right: auto;
 }
 
@@ -221,11 +234,17 @@
     color: #7114ef;
 }
 
+.nav-item:has(.dropdown) > a,
+.nav-item.has-dropdown > a {
+    padding-right: 20px;
+}
+
 /* Dropdown chevron via pseudo-element */
-.nav-item:has(.dropdown) > a::before {
+.nav-item:has(.dropdown) > a::before,
+.nav-item.has-dropdown > a::before {
     content: "▾";
     position: absolute;
-    right: 4px;
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
     color: #7114ef;
@@ -233,7 +252,9 @@
     transition: transform 0.2s ease;
 }
 
-.nav-item:has(.dropdown):hover > a::before {
+.nav-item:has(.dropdown):hover > a::before,
+.nav-item.has-dropdown:hover > a::before,
+.nav-item.is-open > a::before {
     transform: translateY(-50%) rotate(180deg);
 }
 
@@ -260,7 +281,8 @@
 }
 
 .nav-item:hover .dropdown,
-.nav-item.is-open .dropdown {
+.nav-item.is-open .dropdown,
+.nav-item.has-dropdown:hover .dropdown {
     display: block;
     animation: dropFade 0.22s ease-out both;
 }
@@ -326,11 +348,22 @@
     .navbar-container {
         padding-right: 1.5%;
     }
+    .navbar-container::before {
+        width: 250px;
+    }
+    .logo {
+        padding-left: 16px;
+        min-width: 160px;
+    }
+    .logo img {
+        height: 62px;
+        max-width: 175px;
+    }
     .navbar {
-        margin-left: 40px;
+        margin-left: 20px;
     }
     .nav-item > a {
-        padding: 30px 9px;
+        padding: 30px 8px;
         font-size: 12.5px;
     }
 }
@@ -345,15 +378,15 @@
     }
 
     .navbar-container {
-        min-height: 78px;
+        min-height: 84px;
         flex-wrap: wrap;
         padding: 8px 5%;
         padding-right: 5%;
     }
 
     .navbar-container::before {
-        width: 70%;
-        min-width: 220px;
+        width: 74%;
+        min-width: 240px;
         clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%);
     }
 
@@ -364,8 +397,9 @@
     }
 
     .logo img {
-        width: 155px;
-        height: 60px;
+        width: auto;
+        height: 66px;
+        max-width: 185px;
     }
 
     .menu-button {

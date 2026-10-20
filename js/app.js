@@ -16,11 +16,19 @@ const componentes = {
 
 async function cargarComponentes() {
 
+    // Inicializar navegación inmediata si el navbar ya está en el DOM
+    iniciarNavegacion();
+
     for (const [id, archivo] of Object.entries(componentes)) {
 
         const contenedor = document.getElementById(id);
 
         if (!contenedor) continue;
+
+        // Si ya tiene contenido (renderizado estático), evitar parpadeo o pérdida en caso de fallo offline
+        if (id === 'navbar' && contenedor.children.length > 0) {
+            continue;
+        }
 
         try {
 
@@ -215,7 +223,7 @@ function iniciarResaltadoProgramas() {
 }
 
 function iniciarNavegacion() {
-    const itemsConMenu = document.querySelectorAll(".nav-item:has(.dropdown)");
+    const itemsConMenu = document.querySelectorAll(".nav-item.has-dropdown, .nav-item:has(.dropdown)");
 
     itemsConMenu.forEach((item) => {
         const enlace = item.querySelector(":scope > a");
@@ -240,7 +248,7 @@ function iniciarNavegacion() {
     });
 
     document.addEventListener("click", (evento) => {
-        if (evento.target.closest(".nav-item:has(.dropdown)")) return;
+        if (evento.target.closest(".nav-item.has-dropdown, .nav-item:has(.dropdown)")) return;
 
         itemsConMenu.forEach((item) => {
             item.classList.remove("is-open");
